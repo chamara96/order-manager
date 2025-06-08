@@ -55,7 +55,7 @@ def shop(request):
         products = products.filter(tags__slug__in=tags_slugs).distinct()
 
     # Paginate
-    paginator = Paginator(products, 2)  # Show 12 products per page
+    paginator = Paginator(products, 8)  # Show 12 products per page
     page_number = request.GET.get("page")
     page_obj = paginator.get_page(page_number)
 
