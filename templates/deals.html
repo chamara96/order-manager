@@ -1,0 +1,57 @@
+{% load static %}
+{% load custom %}
+<section class="content-inner-2 overflow-hidden">
+    <div class="container">
+        <div class="section-head style-1 wow fadeInUp d-lg-flex justify-content-between" data-wow-delay="0.2s">
+            <div class="left-content">
+                <h2 class="title">Blockbuster deals</h2>
+            </div>
+            <a href="shop-list.html" class="text-secondary font-14 d-flex align-items-center gap-1">See all deals
+                <i class="icon feather icon-chevron-right font-18"></i>
+            </a>
+        </div>
+        <div class="swiper swiper-four swiper-visible">
+            <div class="swiper-wrapper">
+                {% for dp in products_deal %}
+                <div class="swiper-slide">
+                    <div class="shop-card style-2 wow fadeInUp" data-wow-delay="0.4s">
+                        <div class="dz-media">
+                            {% with dp.images.all|first as first_image %}
+                                {% if first_image %}
+                                    <img src="{{first_image.image.url}}" alt="image">
+                                {% else %}
+                                    <p>No image available</p>
+                                {% endif %}
+                            {% endwith %}
+                        </div>
+                        <div class="dz-content">
+                            <div>
+                                {% if dp.discount_precent %}
+                                <span class="sale-title">up to {{dp.discount_precent|floatformat:"0"}}% off</span>
+                                {% endif %}
+                                <h5 class="title"><a href="shop-list.html">{{dp.name}}</a></h5>
+                            </div>
+                            {% if dp.discount_price %}
+                            <h6 class="price">
+                                {{dp.discount_price|currency}}
+                                <del>{{dp.price|currency}}</del>
+                            </h6>
+                            {% elif dp.discount_precent %}
+                            <h6 class="price">
+                                {{dp.calc_discount_price|currency}}
+                                <del>{{dp.price|currency}}</del>
+                            </h6>
+                            {% else %}
+                            <h6 class="price">
+                                {{dp.price|currency}}
+                            </h6>
+                            {% endif %}
+                            
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</section>

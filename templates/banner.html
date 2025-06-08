@@ -1,0 +1,33 @@
+{% load static %}
+<section class=" adv-area">
+    <div class="container-fluid px-0">
+        <div class="row product-style2 g-0">
+            <div class="col-lg-6 col-md-12 wow fadeInUp" data-wow-delay="0.1s">
+                <div class="product-box style-4">
+                    {% with bg_image='images/shop/large/product1.png' %}
+                        <div class="product-media" style="background-image: url('{% static bg_image %}');"></div>
+                    {% endwith %}
+                    <div class="sale-box">
+                        <div class="badge style-1 mb-1">Sale Up to 50% Off</div>
+                        <h2 class="sale-name">Season<span>2025</span></h2>
+                        <a href="shop-list.html" class="btn btn-outline-secondary btn-lg text-uppercase">Shop Now</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6 col-md-12 wow fadeInUp" data-wow-delay="0.2s">
+                <div class="product-box style-4">
+                    {% with bg_image='images/shop/large/product2.png' %}
+                        <div class="product-media" style="background-image: url('{% static bg_image %}');"></div>
+                    {% endwith %}
+                    <div class="product-content">
+                        <div class="main-content">
+                            <div class="badge style-1 mb-3">Sale Up to 50% Off</div>
+                            <h2 class="product-name">New Season Collection</h2>
+                        </div>
+                        <a href="shop-list.html" class="btn btn-secondary btn-lg text-uppercase">Shop Now</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

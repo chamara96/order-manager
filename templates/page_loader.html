@@ -1,0 +1,49 @@
+{% load static %}
+<style>
+    .loader-new {
+        width: 100%;
+        height: 100%;
+
+        transition: all 1s ease 0s;
+        align-items: center;
+        position: fixed;
+        z-index: 999999;
+        left: 0px;
+        top: 0px;
+        display: flex;
+        justify-content: center;
+        background-position: center center;
+        background-size: 150px;
+        background-repeat: no-repeat;
+        backdrop-filter: blur(10px);
+        background: linear-gradient(180deg, #FEEB9D 0%, #FFFAF3 100%);
+    }
+
+    .circle-2-new {
+        max-width: 50%;
+        animation: spin 1s linear infinite;
+    }
+
+    @keyframes spin {
+        0% {
+            opacity: 0;
+        }
+
+        50% {
+            opacity: 1;
+        }
+
+        100% {
+            opacity: 0;
+        }
+    }
+</style>
+<div id="loading-area" class="loader-new">
+    <!-- <div class="loader"> -->
+    <!-- <div class="load-circle"> -->
+    <div class="circle-2-new">
+        <img src="{% static 'images/logo.png' %}" alt="/">
+    </div>
+    <!-- </div> -->
+    <!-- </div> -->
+</div>

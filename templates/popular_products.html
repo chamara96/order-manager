@@ -1,0 +1,74 @@
+{% load static %}
+<section class="content-inner">
+    <div class="container">
+        <div class=" row justify-content-md-between align-items-start">
+            <div class="col-lg-6 col-md-12">
+                <div class="section-head style-1 m-b30  wow fadeInUp" data-wow-delay="0.2s">
+                    <div class="left-content">
+                        <h2 class="title">Most popular products</h2>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6 col-md-12">
+                <div class="site-filters clearfix style-1 align-items-center wow fadeInUp ms-lg-auto"
+                    data-wow-delay="0.4s">
+                    <ul class="filters" data-bs-toggle="buttons">
+                        <li class="btn active">
+                            <input type="radio">
+                            <a href="javascript:void(0);">ALL</a>
+                        </li>
+                        {% for c in product_popular_categories %}
+                        <li data-filter=".{{c.slug}}" class="btn">
+                            <input type="radio">
+                            <a href="javascript:void(0);">{{c.name}}</a>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="clearfix">
+            <ul id="masonry" class="row g-xl-4 g-3">
+                {% for p in products_popular %}
+                <li class="card-container col-6 col-xl-3 col-lg-3 col-md-4 col-sm-6 {% for cat in p.categories.all %}{{ cat.slug }} {% endfor %} wow fadeInUp" data-wow-delay="0.6s">
+                    <div class="shop-card">
+                        <div class="dz-media">
+                            {% with p.images.all|first as first_image %}
+                                {% if first_image %}
+                                    <img src="{{first_image.image.url}}" alt="image">
+                                {% else %}
+                                    <p>No image available</p>
+                                {% endif %}
+                            {% endwith %}
+                            <div class="shop-meta">
+                                <a href="javascript:void(0);" class="btn btn-secondary btn-md btn-rounded"
+                                    data-bs-toggle="modal" data-bs-target="#exampleModal" data-productid="{{p.id}}">
+                                    <i class="fa-solid fa-eye d-md-none d-block"></i>
+                                    <span class="d-md-block d-none">Quick View</span>
+                                </a>
+                                <div class="btn btn-primary meta-icon dz-wishicon">
+                                    <i class="icon feather icon-heart dz-heart"></i>
+                                    <i class="icon feather icon-heart-on dz-heart-fill"></i>
+                                </div>
+                                <div class="btn btn-primary meta-icon dz-carticon">
+                                    <i class="flaticon flaticon-basket"></i>
+                                    <i class="flaticon flaticon-basket-on dz-heart-fill"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="dz-content">
+                            <h5 class="title"><a href="shop-list.html">{{p.name}}</a></h5>
+                            <h5 class="price">{{p.price}}</h5>
+                        </div>
+                        <div class="product-tag">
+                            {% if p.discount_precent %}
+                            <span class="badge">Get {{p.discount_precent|floatformat:"0"}}% Off</span>
+                            {% endif %}
+                        </div>
+                    </div>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+</section>

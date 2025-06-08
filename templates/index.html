@@ -1,0 +1,256 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+	<!-- Title -->
+	<title>WinKs eShop</title>
+
+	<!-- Meta -->
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="author" content="Chamara Herath">
+	<meta name="robots" content="index, follow">
+	<meta name="keywords" content="">
+	<meta name="description" content="">
+	<meta property="og:title" content="WinKs eShop">
+	<meta property="og:description" content="">
+	<meta property="og:image" content="{% static 'images/logo.png' %}">
+	<meta name="format-detection" content="telephone=no">
+	<meta name="twitter:title" content="WinKs eShop">
+	<meta name="twitter:description" content="">
+	<meta name="twitter:image" content="{% static 'images/logo.png' %}">
+	<meta name="twitter:card" content="summary_large_image">
+
+	<!-- FAVICONS ICON -->
+	<link rel="icon" type="image/x-icon" href="{% static 'images/favicon.png' %}">
+
+	<!-- MOBILE SPECIFIC -->
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<!-- STYLESHEETS -->
+
+	<link rel="stylesheet" type="text/css" href="{% static 'icons/iconly/index.min.css' %}">
+	<link rel="stylesheet" type="text/css" href="{% static 'vendor/magnific-popup/magnific-popup.min.css' %}">
+	<link rel="stylesheet" type="text/css" href="{% static 'vendor/bootstrap-select/dist/css/bootstrap-select.min.css' %}">
+	<link rel="stylesheet" type="text/css" href="{% static 'vendor/swiper/swiper-bundle.min.css' %}">
+	<link rel="stylesheet" type="text/css" href="{% static 'vendor/slick/slick.css' %}">
+	<link rel="stylesheet" type="text/css" href="{% static 'vendor/nouislider/nouislider.min.css' %}">
+	<link rel="stylesheet" type="text/css" href="{% static 'vendor/animate/animate.css' %}">
+	<link rel="stylesheet" type="text/css" href="{% static 'vendor/lightgallery/dist/css/lightgallery.css' %}">
+	<link rel="stylesheet" type="text/css" href="{% static 'vendor/lightgallery/dist/css/lg-thumbnail.css' %}">
+	<link rel="stylesheet" type="text/css" href="{% static 'vendor/lightgallery/dist/css/lg-zoom.css' %}">
+
+	<!-- Custom Stylesheet -->
+	<link class="main-css" rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+	<link class="skin" type="text/css" rel="stylesheet" href="{% static 'css/skin/skin-1.css' %}">
+
+	<!-- GOOGLE FONTS-->
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&amp;family=Roboto:wght@100;300;400;500;700;900&amp;display=swap" rel="stylesheet">
+
+</head>
+
+<body id="bg">
+
+	<div class="page-wraper" id="scroll-container">
+
+		{% include "page_loader.html" %}
+
+		<!-- Header Start -->
+		{% include "header.html" %}
+		<!-- Header End -->
+
+		<div class="page-content bg-light">
+
+			{% include "main_slider.html" %}
+
+			<!-- Shop Section Start-->
+			{% include "collection.html" %}
+			<!-- Shop Section End-->
+
+			<!--About Section Start -->
+			{% include "selection.html" %}
+			<!--About Section End -->
+
+			<!-- Products  Section Start-->
+			{% include "popular_products.html" %}
+			<!-- Products Section Start-->
+
+			<!-- Collection Section Start -->
+			{% include "banner.html" %}
+			<!-- Collection Section End-->
+
+			<!-- Blockbuster deal Start-->
+			{% include "deals.html" %}
+			<!-- Blockbuster deal Start-->
+
+			<!-- Offer Section Start-->
+			{% include "offers.html" %}
+			<!-- Offer End-->
+
+			<!-- company-box Start-->
+			{% include "sponsors.html" %}
+			<!-- company-box End-->
+
+			<!-- collection-bx -->
+			{% include "ending.html" %}
+			<!-- collection-bx -->
+
+		</div>
+
+		<!-- Footer -->
+		{% include "footer.html" %}
+		<!-- Footer End -->
+
+		<div class="scroltop-progress2"></div>
+		<button class="scroltop" type="button"><i class="fas fa-arrow-up"></i></button>
+
+		<!-- Quick Modal Start -->
+		{% include "item_quick_view.html" %}
+		<!-- Quick Modal End -->
+
+	</div>
+	<!-- JAVASCRIPT FILES ========================================= -->
+	<script src="{% static 'js/jquery.min.js' %}"></script><!-- JQUERY MIN JS -->
+	<script src="{% static 'vendor/wow/wow.min.js' %}"></script><!-- WOW JS -->
+	<script src="{% static 'vendor/bootstrap/dist/js/bootstrap.bundle.min.js' %}"></script><!-- BOOTSTRAP MIN JS -->
+	<script src="{% static 'vendor/bootstrap-select/dist/js/bootstrap-select.min.js' %}"></script>
+	<!-- BOOTSTRAP SELECT MIN JS -->
+	<script src="{% static 'vendor/bootstrap-touchspin/bootstrap-touchspin.js' %}"></script>
+	<!-- BOOTSTRAP TOUCHSPIN JS -->
+	<script src="{% static 'vendor/counter/waypoints-min.js' %}"></script><!-- WAYPOINTS JS -->
+	<script src="{% static 'vendor/counter/counterup.min.js' %}"></script><!-- COUNTERUP JS -->
+	<script src="{% static 'vendor/swiper/swiper-bundle.min.js' %}"></script><!-- SWIPER JS -->
+	<script src="{% static 'vendor/slick/slick.min.js' %}"></script>
+	<script src="{% static 'vendor/magnific-popup/magnific-popup.js' %}"></script><!-- MAGNIFIC POPUP JS -->
+	<script src="{% static 'vendor/imagesloaded/imagesloaded.js' %}"></script><!-- IMAGESLOADED-->
+	<script src="{% static 'vendor/masonry/masonry-4.2.2.js' %}"></script><!-- MASONRY -->
+	<script src="{% static 'vendor/masonry/isotope.pkgd.min.js' %}"></script><!-- ISOTOPE -->
+	<script src="{% static 'vendor/countdown/jquery.countdown.js' %}"></script><!-- COUNTDOWN FUCTIONS  -->
+	<script src="{% static 'vendor/wnumb/wNumb.js' %}"></script><!-- WNUMB -->
+	<script src="{% static 'vendor/nouislider/nouislider.min.js' %}"></script><!-- NOUSLIDER MIN JS-->
+	<script src="{% static 'js/dz.carousel.js' %}"></script><!-- DZ CAROUSEL JS -->
+	<script src="{% static 'vendor/lightgallery/dist/lightgallery.min.js' %}"></script>
+	<script src="{% static 'vendor/lightgallery/dist/plugins/thumbnail/lg-thumbnail.min.js' %}"></script>
+	<script src="{% static 'vendor/lightgallery/dist/plugins/zoom/lg-zoom.min.js' %}"></script>
+	<script src="{% static 'js/dz.ajax.js' %}"></script><!-- AJAX -->
+	<script src="{% static 'js/custom.js' %}"></script><!-- CUSTOM JS -->
+
+	<script>
+		$('#exampleModal').on('show.bs.modal', function (e) {
+			console.log("==== OPEN ====");
+			var productid = $(e.relatedTarget).data('productid');
+			console.log("Product ID: " + productid);
+
+			$.ajax({
+				method: "GET",
+				url: "/api/products/" + productid + "/",
+				dataType: 'json',
+				success: function(res) {
+					console.log(res);
+					$('#product-name').text(res.name);
+					$('#product-description').text(res.description);
+					if (parseFloat(res.discount_precent) > 0) {
+						$('#product-discount-precent').text("SALE "+parseFloat(res.discount_precent)+"% Off");
+						$('#product-discount-precent').show();
+					} else {
+						$('#product-discount-precent').hide();
+					}
+					
+
+					if (parseFloat(res.price) != parseFloat(res.calc_discount_price)) {
+						$('#product-price').html(res.calc_discount_price_formatted+' <del>'+res.price_formatted+'</del>');
+					} else {
+						$('#product-price').html(res.price_formatted);
+					}
+					
+					$('#product-sku').text(res.sku);
+
+					var product_categories_html = '<li><strong>Category:</strong></li>';
+					$.each(res.categories, function(index, category) {
+						product_categories_html += '<li><a href="#">'+category.name+'</a></li>';
+					});
+					$('#product-categories').html(product_categories_html);
+
+					var product_tags_html = '<li><strong>Tags:</strong></li>';
+					$.each(res.tags, function(index, tag) {
+						product_tags_html += '<li><a href="#">'+tag.name+'</a></li>';
+					});
+					$('#product-tags').html(product_tags_html);
+
+					var product_images_main_html = '<div class="swiper quick-modal-swiper2"><div class="swiper-wrapper" id="lightgallery">';
+					var product_images_thumb_html = '<div class="swiper quick-modal-swiper thumb-swiper-lg thumb-sm swiper-vertical"><div class="swiper-wrapper">';
+					$.each(res.images, function(index, image) {
+						product_images_main_html += '<div class="swiper-slide">'+
+                                            '<div class="dz-media DZoomImage">'+
+                                                '<a class="mfp-link lg-item" href="'+image.image+'" data-src="'+image.image+'">'+
+                                                    '<i class="feather icon-maximize dz-maximize top-right"></i>'+
+                                                '</a>'+
+                                                '<img src="'+image.image+'" alt="image">'+
+                                            '</div>'+
+                                        '</div>';
+						
+						product_images_thumb_html += '<div class="swiper-slide"><img src="'+image.image+'" alt="image"></div>';
+					});
+					product_images_main_html += '</div></div>';
+					product_images_thumb_html += '</div></div>';
+
+					$('#product-images').html(product_images_main_html + product_images_thumb_html);
+
+					const galleryElement = document.getElementById('lightgallery'); // Replace 'your-gallery-id' with your actual ID
+
+					if (galleryElement) {
+						console.log("==== Destroying LightGallery ====");
+						
+						// galleryElement.lightGallery().destroy();
+						setTimeout(() => {
+						lightGallery(galleryElement, {
+							plugins: [lgThumbnail, lgZoom],
+							selector: '.lg-item',
+							thumbnail: true,
+							exThumbImage: 'data-src'
+						});
+						}, 250);
+					}
+
+					var swiper = new Swiper(".quick-modal-swiper", {
+						spaceBetween: 15,
+						slidesPerView: 4,
+						freeMode: true,
+						watchSlidesProgress: true,
+					});
+					var swiper2 = new Swiper(".quick-modal-swiper2", {
+						spaceBetween: 0,
+						updateOnWindowResize: true,	
+						navigation: {
+							nextEl: ".gallery-button-next",
+							prevEl: ".gallery-button-prev",
+						},
+						thumbs: {
+							swiper: swiper,
+						},
+					});
+				}
+			});
+			
+			// $(e.currentTarget).find('.any-class').attr("href", "url");
+		});
+
+		$('#exampleModal').on('hide.bs.modal', function (e) {
+			console.log("==== CLOSE ====");
+			// Reset the modal content
+			$('#product-name').text('');
+			$('#product-description').text('');
+			$('#product-price').html('');
+			$('#product-sku').text('');
+			$('#product-categories').html('');
+			$('#product-tags').html('');
+			$('#product-images').html('');
+		});
+	</script>
+</body>
+
+</html>
