@@ -40,7 +40,6 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    # "debug_toolbar",
     "rest_framework",
     "extra_settings",
     "adminsortable2",
@@ -53,7 +52,6 @@ MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
-    # "debug_toolbar.middleware.DebugToolbarMiddleware",
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
@@ -98,28 +96,6 @@ DATABASES = {
     }
 }
 
-# LOGGING = {
-#     'version': 1,
-#     # 'filters': {
-#     #     'require_debug_true': {
-#     #         '()': 'django.utils.log.RequireDebugTrue',
-#     #     }
-#     # },
-#     'handlers': {
-#         'console': {
-#             'level': 'DEBUG',
-#             # 'filters': ['require_debug_true'],
-#             'class': 'logging.StreamHandler',
-#         }
-#     },
-#     'loggers': {
-#         'django.db.backends': {
-#             'level': 'DEBUG',
-#             'handlers': ['console'],
-#         }
-#     }
-# }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/5.2/ref/settings/#auth-password-validators
@@ -158,10 +134,10 @@ USE_TZ = True
 SERVER_PUBLIC_FOLDER = BASE_DIR
 
 STATIC_URL = 'static/'
-STATIC_ROOT = SERVER_PUBLIC_FOLDER / 'static/'
+STATIC_ROOT =  f'{SERVER_PUBLIC_FOLDER}/static/'
 
 MEDIA_URL = 'media/'
-MEDIA_ROOT = SERVER_PUBLIC_FOLDER /  "media/"
+MEDIA_ROOT =  f"{SERVER_PUBLIC_FOLDER}/media/"
 
 
 # Default primary key field type
