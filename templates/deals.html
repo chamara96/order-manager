@@ -6,7 +6,7 @@
             <div class="left-content">
                 <h2 class="title">Blockbuster deals</h2>
             </div>
-            <a href="shop-list.html" class="text-secondary font-14 d-flex align-items-center gap-1">See all deals
+            <a href="/shop/" class="text-secondary font-14 d-flex align-items-center gap-1">See all deals
                 <i class="icon feather icon-chevron-right font-18"></i>
             </a>
         </div>
@@ -29,7 +29,7 @@
                                 {% if dp.discount_precent %}
                                 <span class="sale-title">up to {{dp.discount_precent|floatformat:"0"}}% off</span>
                                 {% endif %}
-                                <h5 class="title"><a href="shop-list.html">{{dp.name}}</a></h5>
+                                <h5 class="title"><a href="/shop/">{{dp.name}}</a></h5>
                             </div>
                             {% if dp.discount_price %}
                             <h6 class="price">
