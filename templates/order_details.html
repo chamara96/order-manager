@@ -78,6 +78,7 @@
 		<div class="content-inner-1">
 			<div class="container" style="max-width: 800px;">
                 <div class="row">
+					{% if order %}
 					<section class="col-xl-12 account-wrapper">
 						<div class="account-card order-details">
                             <h5 class="text-success mb-4">Thank you Your order has been received</h5>
@@ -220,6 +221,11 @@
 							</div>
 						</div>
 					</section>
+					{% else %}
+					<div class="text-center">
+						<h3 class="text-danger">{{ error }}</h3>
+					</div>
+					{% endif %}
 				</div>
       		</div>
 		</div>

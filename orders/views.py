@@ -6,7 +6,7 @@ def order_details(request, order_number):
 
     order = Order.objects.filter(order_number=order_number).first()
     if not order:
-        return render(request, "order_details.html", {"error": "Order not found."})
+        return render(request, "order_details.html", {"error": "Invalid order number"})
 
     context = {
         "order": order,
