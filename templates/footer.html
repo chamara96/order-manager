@@ -46,7 +46,7 @@
         <div class="container">
             <div class="row fb-inner">
                 <div class="col-lg-6 col-md-12 text-start"> 
-                    <p class="copyright-text">© <span class="current-year">2025</span> <a href="https://winks.com/">WinKs</a> Site. All Rights Reserved.</p>
+                    <p class="copyright-text">© <span class="current-year">{% now "Y" %}</span> <a href="{% get_setting 'WEBSITE_URL' %}">{% get_setting 'WEBSITE_NAME' %}</a> Site. All Rights Reserved.</p>
                 </div>
                 <div class="col-lg-6 col-md-12 text-end"> 
                     <div class="d-flex align-items-center justify-content-center justify-content-md-center justify-content-lg-end">
