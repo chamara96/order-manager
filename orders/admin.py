@@ -93,8 +93,10 @@ class OrderAdmin(admin.ModelAdmin):
     status_history.short_description = "Status History"
 
     def customer_link(self, obj):
+        if not obj.pk:
+            return "(save order to view customer link)"
         return format_html(
             f"<a target='_blank' href='/my-orders/{obj.order_number}'>Click</a>"
         )
 
-    status_history.short_description = "Customer Link"
+    customer_link.short_description = "Customer Link"
