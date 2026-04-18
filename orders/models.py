@@ -1,6 +1,8 @@
-from django.db import models
-from base.models import BaseModel
 import uuid
+
+from django.db import models
+
+from base.models import BaseModel
 
 
 class Order(BaseModel):
@@ -28,26 +30,26 @@ class Order(BaseModel):
         ],
     )
     is_paid = models.BooleanField(default=False)
-    
+
     def __str__(self):
         return f"Order {self.order_number[:8]} - {self.customer_name}"
-    
+
     def latest_status(self):
-        status = self.statuses.order_by('-updated_at').first()
-        return status.status.title() if status else 'N/A'
-    
+        status = self.statuses.order_by("-updated_at").first()
+        return status.status.title() if status else "N/A"
+
     def total_price(self):
         return sum(item.price for item in self.items.all())
-    
+
     def save(self, *args, **kwargs):
         is_new = self.pk is None
         if not self.order_number:
             self.order_number = str(uuid.uuid4()).replace("-", "").upper()
         super().save(*args, **kwargs)
-        
+
         # Auto-create initial status only for new orders
         if is_new:
-            OrderStatus.objects.create(order=self, status='pending')
+            OrderStatus.objects.create(order=self, status="pending")
 
 
 class OrderItem(BaseModel):

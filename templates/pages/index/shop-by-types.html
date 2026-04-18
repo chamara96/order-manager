@@ -1,0 +1,21 @@
+{% load static %}
+{% load easy_thumbnails_tags %}
+<section class="container pt-15 pt-lg-17 pb-lg-10 pb-10">
+    <div class="mb-12 text-center" data-animate="fadeInUp">
+        <h2 class="fs-3 mb-6">Featured Collection</h2>
+        <p class="fs-18px mb-0">Our products are designed for everyone.</p>
+    </div>
+
+    <div class="row gy-30px">
+        {% for type in product_types %}
+        <div class="col-md-4 col-12" data-animate="fadeInUp">
+            <div class="card border-0 rounded-0 hover-zoom-in hover-shine">
+                <img class="lazy-image card-img object-fit-cover lazy-image light-mode-img" src="#" data-src="{% thumbnail type.image 370x490 crop upscale %}" width="370" height="490" alt="">
+                <div class="card-img-overlay d-inline-flex flex-column p-9 justify-content-end text-center">
+                    <div><a href="{% url 'products:shop' %}{% querystring types=type.slug %}" class="btn btn-white">{{type.name}}</a></div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</section>

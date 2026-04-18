@@ -1,5 +1,6 @@
-from django import template
 from urllib.parse import urlencode
+
+from django import template
 
 register = template.Library()
 
@@ -35,5 +36,16 @@ def toggle_tag_url(context, tag_slug):
         get_copy["tags"] = ",".join(tag_list)
     else:
         get_copy.pop("tags", None)
+
+    return "?" + urlencode(get_copy, doseq=True)
+
+
+@register.simple_tag(takes_context=True)
+def shop_url(context, **kwargs):
+    request = context["request"]
+    get_copy = request.GET.copy()
+
+    for key, value in kwargs.items():
+        get_copy[key] = value
 
     return "?" + urlencode(get_copy, doseq=True)

@@ -1,0 +1,82 @@
+{% load static %}
+{% load djmoney %}
+{% load easy_thumbnails_tags %}
+<section id="because_you_need_time_for_yourself_2">
+
+    <div class="container pt-13 pt-lg-15 my-4 pb-15 pb-lg-20">
+        <div class="mb-13 text-center pb-3" data-animate="fadeInUp">
+            <img data-src="{% static 'assets/images/shop/single-image-01.png' %}" width="140" height="138" class="mb-5 img-fluid lazy-image d-inline-block" alt="..." src="#">
+            <h2 class="h3 mb-0">Because You Need Time for Yourself.<br />Blend Beauty in You</h2>
+        </div>
+        <div class="row gy-50px" style="justify-content:center;">
+            {% for p in trending_products %}
+            <div class="col-lg-3 col-md-4 col-sm-6 col-12">
+                <div class="card card-product grid-1 bg-transparent border-0" data-animate="fadeInUp">
+                    <figure class="card-img-top position-relative mb-7 overflow-hidden ">
+                        <a href="{% url 'products:product-details' p.slug %}" class="hover-zoom-in d-block" title="{{ p.name }}">
+                            <img src="#" data-src="{{ p.main_image.image|thumbnail_url:'product' }}" class="img-fluid lazy-image w-100" alt="{{ p.name }}" width="330" height="440">
+                        </a>
+
+                        <div class="position-absolute product-flash z-index-2 ">
+                            {% if p.discount_percentage > 0 %}
+                            <span class="badge badge-product-flash on-sale bg-primary">-{{ p.formatted_discount_percentage }}%</span>
+                            {% endif %}
+                            {% if p.new %}
+                                <span class="badge badge-product-flash on-new">New</span>
+                            {% endif %}
+                        </div>
+
+                        <div class="position-absolute d-flex z-index-2 product-actions horizontal">
+                            <a class="text-body-emphasis bg-body bg-dark-hover text-light-hover rounded-circle square product-action shadow-sm add_to_cart" href="#" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Add To Cart">
+                                <svg class="icon icon-shopping-bag-open-light">
+                                    <use xlink:href="#icon-shopping-bag-open-light"></use>
+                                </svg>
+                            </a>
+                        </div>
+                    </figure>
+
+                    <div class="card-body text-center p-0">
+                        <span class="d-flex align-items-center price text-body-emphasis fw-bold justify-content-center mb-3 fs-6">
+                            {% if p.has_discount %}
+                            <del class=" text-body fw-500 me-4 fs-13px">{% money_localize p.price %}</del>
+                            {% endif %}
+                            <ins class="text-decoration-none">{% money_localize p.net_price %}</ins>
+                        </span>
+                        <h4 class="product-title card-title text-primary-hover text-body-emphasis fs-15px fw-500 mb-3">
+                            <a class="text-decoration-none text-reset" href="{% url 'products:product-details' p.slug %}">{{ p.name }}</a>
+                        </h4>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        <div class="text-center mt-12" data-animate="fadeInUp">
+            <a href="{% url 'products:shop' %}" class="btn btn-outline-dark">Shop All Product</a>
+        </div>
+    </div>
+
+</section>
+
+{% if section_settings.new_collection %}
+{% with section=section_settings.new_collection %}
+<section class="bg-section-3 ">
+
+    <div class="container container-xxl">
+        <div class="row align-items-end">
+            <div class="col-lg-4 order-2 order-lg-1 px-xl-6 pb-16 pt-12 py-lg-18 py-xl-22" data-animate="fadeInUp">
+                <div class="text-left">
+                    <p class="fs-15px mb-6 ls-1 text-body-emphasis fw-semibold">NEW COLLECTION</p>
+                    <h2 class="fs-20 w-md-50 w-lg-100 w-xl-80 mb-4 me-7 me-md-25">{{ section.title }}</h2>
+                    <p class="fs-18px mb-0 text-body-calculate">{{section.subtitle}}</p>
+                </div>
+                <a href="#" class="mt-10 btn btn-white shadow-sm">Explore More</a>
+            </div>
+            <div class="col-lg-8 order-1 order-lg-2" data-animate="fadeIn">
+                <img class="lazy-image img-fluid light-mode-img" src="#" data-src="{% static section.icon %}" width="923" height="640" alt="other-01">
+            </div>
+        </div>
+    </div>
+
+</section>
+{% endwith %}
+{% endif %}

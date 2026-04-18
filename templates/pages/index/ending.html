@@ -1,0 +1,36 @@
+{% load static %}
+<section class="lazy-bg position-relative bg-image pt-lg-17 pt-10 pb-lg-17 pt-15 pb-15">
+
+    <div class="container text-center z-index-2 position-relative">
+        <div class="mx-auto text-center" style="max-width:509px" data-animate="fadeInUp">
+            <h3 class="mb-11 font-primary fw-normal">Stay Up to Date with All News and Exclusive Offers</h3>
+        </div>
+
+        <form class="mx-auto up-to-date-form" style="max-width: 546px" data-animate="fadeInUp">
+            <div class="text-center">
+                <div class=" input-group position-relative mb-11 form-border-transparent">
+                    <input type="email" class="form-control bg-body rounded-left"
+                        placeholder="Enter your email address">
+                    <button type="submit"
+                        class=" btn btn-dark btn-hover-bg-primary btn-hover-border-primary rounded ms-0">Subscribe</button>
+                </div>
+                <div class="form-check d-flex justify-content-center">
+                    <input class="form-check-input me-4 rounded" type="checkbox" value="" id="flexCheckDefault">
+                    <label class="form-check-label text-body fs-14px" for="flexCheckDefault">
+                        I accept the <a href="#" class="text-decoration-none text border-bottom">terms &
+                            conditions</a> and <a href="#" class="text-decoration-none border-bottom">the data
+                            protection</a>
+                    </label>
+                </div>
+            </div>
+
+        </form>
+    </div>
+
+    <div class="lazy-bg bg-overlay position-absolute z-index-1 w-100 h-100   light-mode-img"
+        data-bg-src="{% static 'assets/images/others/news-letter-background-02.jpg' %}">
+    </div>
+    <div class="lazy-bg bg-overlay dark-mode-img position-absolute z-index-1 w-100 h-100"
+        data-bg-src="{% static 'assets/images/others/news-letter-background-white-02.jpg' %}">
+    </div>
+</section>

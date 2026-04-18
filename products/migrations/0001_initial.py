@@ -8,94 +8,161 @@ class Migration(migrations.Migration):
 
     initial = True
 
-    dependencies = [
-    ]
+    dependencies = []
 
     operations = [
         migrations.CreateModel(
-            name='Category',
+            name="Category",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('created_at', models.DateTimeField(auto_now_add=True)),
-                ('updated_at', models.DateTimeField(auto_now=True)),
-                ('is_active', models.BooleanField(default=True)),
-                ('name', models.CharField(max_length=128)),
-                ('slug', models.SlugField(default='')),
-                ('image', models.ImageField(upload_to='uploads/')),
-                ('order', models.PositiveIntegerField(db_index=True, default=0)),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("created_at", models.DateTimeField(auto_now_add=True)),
+                ("updated_at", models.DateTimeField(auto_now=True)),
+                ("is_active", models.BooleanField(default=True)),
+                ("name", models.CharField(max_length=128)),
+                ("slug", models.SlugField(default="")),
+                ("image", models.ImageField(upload_to="uploads/")),
+                ("order", models.PositiveIntegerField(db_index=True, default=0)),
             ],
             options={
-                'verbose_name': 'Category',
-                'verbose_name_plural': 'Categories',
-                'ordering': ['order'],
+                "verbose_name": "Category",
+                "verbose_name_plural": "Categories",
+                "ordering": ["order"],
             },
         ),
         migrations.CreateModel(
-            name='ProductType',
+            name="ProductType",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('name', models.CharField(max_length=50)),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("name", models.CharField(max_length=50)),
             ],
         ),
         migrations.CreateModel(
-            name='Tag',
+            name="Tag",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('created_at', models.DateTimeField(auto_now_add=True)),
-                ('updated_at', models.DateTimeField(auto_now=True)),
-                ('is_active', models.BooleanField(default=True)),
-                ('name', models.CharField(max_length=128)),
-                ('slug', models.SlugField(default='')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("created_at", models.DateTimeField(auto_now_add=True)),
+                ("updated_at", models.DateTimeField(auto_now=True)),
+                ("is_active", models.BooleanField(default=True)),
+                ("name", models.CharField(max_length=128)),
+                ("slug", models.SlugField(default="")),
             ],
             options={
-                'verbose_name': 'Tag',
-                'verbose_name_plural': 'Tags',
-                'ordering': ['name'],
+                "verbose_name": "Tag",
+                "verbose_name_plural": "Tags",
+                "ordering": ["name"],
             },
         ),
         migrations.CreateModel(
-            name='Product',
+            name="Product",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('created_at', models.DateTimeField(auto_now_add=True)),
-                ('updated_at', models.DateTimeField(auto_now=True)),
-                ('is_active', models.BooleanField(default=True)),
-                ('name', models.CharField(max_length=128)),
-                ('slug', models.SlugField(default='')),
-                ('description', models.TextField(blank=True, null=True)),
-                ('price', models.DecimalField(decimal_places=2, max_digits=10)),
-                ('sku', models.CharField(max_length=64, unique=True)),
-                ('stock', models.PositiveIntegerField(default=0)),
-                ('image', models.ImageField(upload_to='uploads/')),
-                ('is_popular', models.BooleanField(default=False)),
-                ('is_deal', models.BooleanField(default=False)),
-                ('discount_precent', models.DecimalField(decimal_places=2, default=0.0, max_digits=5)),
-                ('discount_price', models.DecimalField(decimal_places=2, default=0, max_digits=10)),
-                ('order', models.PositiveIntegerField(db_index=True, default=0)),
-                ('categories', models.ManyToManyField(blank=True, related_name='products', to='products.category')),
-                ('types', models.ManyToManyField(related_name='products', to='products.producttype')),
-                ('tags', models.ManyToManyField(blank=True, related_name='products', to='products.tag')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("created_at", models.DateTimeField(auto_now_add=True)),
+                ("updated_at", models.DateTimeField(auto_now=True)),
+                ("is_active", models.BooleanField(default=True)),
+                ("name", models.CharField(max_length=128)),
+                ("slug", models.SlugField(default="")),
+                ("description", models.TextField(blank=True, null=True)),
+                ("price", models.DecimalField(decimal_places=2, max_digits=10)),
+                ("sku", models.CharField(max_length=64, unique=True)),
+                ("stock", models.PositiveIntegerField(default=0)),
+                ("image", models.ImageField(upload_to="uploads/")),
+                ("is_popular", models.BooleanField(default=False)),
+                ("is_deal", models.BooleanField(default=False)),
+                (
+                    "discount_precent",
+                    models.DecimalField(decimal_places=2, default=0.0, max_digits=5),
+                ),
+                (
+                    "discount_price",
+                    models.DecimalField(decimal_places=2, default=0, max_digits=10),
+                ),
+                ("order", models.PositiveIntegerField(db_index=True, default=0)),
+                (
+                    "categories",
+                    models.ManyToManyField(
+                        blank=True, related_name="products", to="products.category"
+                    ),
+                ),
+                (
+                    "types",
+                    models.ManyToManyField(
+                        related_name="products", to="products.producttype"
+                    ),
+                ),
+                (
+                    "tags",
+                    models.ManyToManyField(
+                        blank=True, related_name="products", to="products.tag"
+                    ),
+                ),
             ],
             options={
-                'verbose_name': 'Product',
-                'verbose_name_plural': 'Products',
-                'ordering': ['order'],
+                "verbose_name": "Product",
+                "verbose_name_plural": "Products",
+                "ordering": ["order"],
             },
         ),
         migrations.CreateModel(
-            name='ProductImage',
+            name="ProductImage",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('created_at', models.DateTimeField(auto_now_add=True)),
-                ('updated_at', models.DateTimeField(auto_now=True)),
-                ('is_active', models.BooleanField(default=True)),
-                ('image', models.ImageField(upload_to='uploads/')),
-                ('product', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='images', to='products.product')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("created_at", models.DateTimeField(auto_now_add=True)),
+                ("updated_at", models.DateTimeField(auto_now=True)),
+                ("is_active", models.BooleanField(default=True)),
+                ("image", models.ImageField(upload_to="uploads/")),
+                (
+                    "product",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="images",
+                        to="products.product",
+                    ),
+                ),
             ],
             options={
-                'verbose_name': 'Product Image',
-                'verbose_name_plural': 'Product Images',
-                'ordering': ['product__order'],
+                "verbose_name": "Product Image",
+                "verbose_name_plural": "Product Images",
+                "ordering": ["product__order"],
             },
         ),
     ]

@@ -1,9 +1,9 @@
-from django.contrib import admin
-from .models import Order, OrderItem, OrderStatus
+from django.contrib import admin, messages
+from django.shortcuts import redirect
 from django.urls import path
 from django.utils.html import format_html
-from django.contrib import messages
-from django.shortcuts import redirect
+
+from .models import Order, OrderItem, OrderStatus
 
 
 class OrderItemInline(admin.TabularInline):

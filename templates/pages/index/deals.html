@@ -1,0 +1,53 @@
+{% load static %}
+{% load custom %}
+{% load extra_settings %}
+<section class="pt-12 pb-lg-13 pb-13">
+
+    <div class="container container-xxl">
+        <div class="row justify-content-center">
+            {% for s in section_settings.services %}
+            <div class="col-xl-3 col-md-6" data-animate="fadeInUp">
+                <div class="icon-box icon-box-style-1 card border-0 text-center">
+                    <div class="icon-box-icon card-img fs-70px text-primary">
+                        <svg class="icon">
+                            <use xlink:href="{{s.icon}}"></use>
+                        </svg>
+                    </div>
+                    <div class="icon-box-content card-body pt-4">
+                        <h3 class="icon-box-title card-title fs-5 mb-4 pb-2">{{ s.title }}</h3>
+                        <p class="icon-box-desc card-text fs-18px mb-0">{{ s.subtitle }}</p>
+                    </div>
+                </div>
+
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<section class="pt-lg-19 pt-14 pb-lg-18 pb-15">
+
+    <div class="container container-xxl">
+        <div class="mb-md-13 mb-11">
+            <div class="text-center" data-animate="fadeInUp">
+                <h2 class="mb-6">Why Shop with {% get_setting 'WEBSITE_NAME' %}?</h2>
+            </div>
+
+        </div>
+        <div class="row gx-30px gy-30px justify-content-center">
+            {% for s in section_settings.why_with_us %}
+            <div class="col-lg-4" data-animate="fadeInUp">
+                <div class="">
+                    <div class="d-flex justify-content-center">
+                        <img class="lazy-image img-fluid" src="#" data-src="{% static s.icon %}" width="140" height="140" alt="{{ s.title }}">
+                    </div>
+                    <div class="card-body text-center pt-7 mt-3">
+                        <h3 class="fs-4 mb-6">{{ s.title }}</h3>
+                        <p class="mb-0 px-lg-6">{{ s.subtitle }}</p>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>

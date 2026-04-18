@@ -1,5 +1,6 @@
 from rest_framework import serializers
-from .models import Product, ProductImage, Category, Tag, ProductType
+
+from .models import Category, Product, ProductImage, ProductType
 
 
 class ProductImageSerializer(serializers.ModelSerializer):
@@ -14,21 +15,16 @@ class CategorySerializer(serializers.ModelSerializer):
         fields = ["name", "slug"]
         ordering = ["name"]
 
+
 class ProductTypeSerializer(serializers.ModelSerializer):
     class Meta:
         model = ProductType
         fields = ["name"]
 
-class ProductTagSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Tag
-        fields = ["name", "slug"]
-
 
 class ProductSerializer(serializers.ModelSerializer):
     images = ProductImageSerializer(many=True, read_only=True)
     categories = CategorySerializer(many=True, read_only=True)
-    tags = ProductTagSerializer(many=True, read_only=True)
     types = ProductTypeSerializer(many=True, read_only=True)
 
     class Meta:
@@ -39,18 +35,13 @@ class ProductSerializer(serializers.ModelSerializer):
             "slug",
             "description",
             "price",
-            "price_formatted",
             "sku",
             "stock",
             "categories",
-            "tags",
             "types",
-            "is_popular",
-            "is_deal",
-            "discount_precent",
+            "trending",
+            "discount_percentage",
             "discount_price",
-            "calc_discount_price",
-            "calc_discount_price_formatted",
+            # "calc_discount_price",
             "images",
-            
         ]

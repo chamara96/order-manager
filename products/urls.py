@@ -7,5 +7,5 @@ urlpatterns = [
     path("", views.index, name="index"),
     path("shop/", views.shop, name="shop"),
     path("cart/", views.cart, name="cart"),
-    path('api/products/<int:pk>/', views.product_detail, name='get-product-detail'),
+    path("products/<str:slug>/", views.product_detail, name="product-details"),
 ]

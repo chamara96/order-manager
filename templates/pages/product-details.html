@@ -1,0 +1,167 @@
+{% load static %}
+{% load extra_settings %}
+{% load djmoney %}
+{% load easy_thumbnails_tags %}
+<!doctype html>
+<html lang="en" data-bs-theme="light">
+
+<head>
+    {% include 'base/head.html' with title=product.name %}
+</head>
+
+<body>
+
+    {% include "base/header.html" %}
+
+    <main id="content" class="wrapper layout-page">
+
+        <section class="z-index-2 position-relative pb-2 mb-12">
+            <div class="bg-body-secondary mb-3">
+                <div class="container">
+                    <nav class="py-4 lh-30px" aria-label="breadcrumb">
+                        <ol class="breadcrumb justify-content-center py-1 mb-0">
+                            <li class="breadcrumb-item"><a title="Home" href="/">Home</a></li>
+                            <li class="breadcrumb-item"><a title="Shop" href="{% url 'products:shop' %}">Shop</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">{{product.name}}</li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+        </section>
+
+        <section class="container container-xxl pt-6 pb-13 pb-lg-20">
+            <div class="row ">
+                <div class="col-md-6 pe-lg-13">
+                    <div class="position-sticky top-0">
+                        <div class="row">
+                            <div class="col-xl-2 pe-xl-0 order-1 order-xl-0 mt-5 mt-xl-0">
+                                <div id="slide-thumb-5" class="slick-slider slick-slider-thumb ps-1 ms-n3 me-n4 mx-xl-0"
+                                    data-slick-options='{"arrows":false,"asNavFor":"#slide-5","dots":false,"focusOnSelect":true,"responsive":[{"breakpoint":1260,"settings":{"vertical":false}}],"slidesToShow":4,"vertical":true}'>
+                                    {% for image in product.images.all %}
+                                            <img src="#"
+                                                data-src="{{ image.image|thumbnail_url:'product_thumbnail' }}"
+                                                class="cursor-pointer lazy-image h-auto mx-3 mx-xl-0 px-0 mb-xl-7" width="540"
+                                                height="720" alt="">
+                                    {% endfor %}
+                                </div>
+                            </div>
+                            <div class="col-xl-10 ps-xl-8 pe-xl-0 order-0 order-xl-1">
+                                <div id="slide-5"
+                                    class="slick-slider slick-slider-arrow-inside slick-slider-dots-inside slick-slider-dots-light g-0"
+                                    data-slick-options='{"arrows":false,"asNavFor":"#slide-thumb-5","dots":false,"slidesToShow":1,"vertical":true}'>
+                                    {% for image in product.images.all %}
+                                            <a href="{{ image.image|thumbnail_url:'product' }}"
+                                                data-gallery="gallery5"
+                                                data-thumb-src="{{ image.image|thumbnail_url:'product_thumbnail' }}">
+                                                <img src="#" data-src="{{ image.image|thumbnail_url:'product' }}"
+                                                    class="h-auto lazy-image" width="540" height="720" alt="">
+                                            </a>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 pt-md-0 pt-10">
+                    <p class="d-flex align-items-center mb-6">
+                        {% if product.has_discount %}
+                        <span class="text-decoration-line-through">{% money_localize product.price %}</span>
+                        {% endif %}
+                        <span class="fs-18px text-body-emphasis ps-6 fw-bold">{% money_localize product.net_price %}</span>
+                        {% if product.discount_percentage > 0 %}
+                        <span class="badge text-bg-primary fs-6 fw-semibold ms-7 px-6 py-3">{{ product.formatted_discount_percentage }}%</span>
+                        {% endif %}
+                    </p>
+                    <h1 class="mb-4 pb-2 fs-4">{{ product.name }}</h1>
+                    <p class="fs-15px">{{ product.description }}</p>
+
+                    {% if product.stock > 0 %}
+                    <p class="mb-4 pb-2 text-body-emphasis">
+						<svg class="icon fs-5 me-4 pe-2 align-text-bottom">
+							<use xlink:href="#icon-Timer"></use>
+						</svg>
+                        {% if product.stock < 10 %}
+                        Only
+                        {% endif %}
+						{{ product.stock }} left in stock
+					</p>
+                    {% endif %}
+
+                    <form class="pb-8">
+                        {% if product.sizes.exists %}
+                        <div class="form-group shop-swatch mb-7 d-flex align-items-center">
+                            <span class="fw-semibold text-body-emphasis me-7">Size: </span>
+                            <ul class="list-inline d-flex justify-content-start mb-0">
+                                {% for size in product.sizes.all %}
+                                <li class="list-inline-item me-4 fw-semibold">
+                                    <input type="radio" id="radio{{ forloop.counter }}" name="radio" class="product-info-size d-none"
+                                        {% if forloop.first %}checked{% endif %}>
+                                    <label for="radio{{ forloop.counter }}" class="fs-14px p-4 d-block rounded text-decoration-none border"
+                                        data-var="{{ size.name }}">{{ size.name }}</label>
+                                </li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                        {% endif %}
+
+                        <div class="row align-items-end">
+                            <div class="form-group col-sm-4">
+                                <label class=" text-body-emphasis fw-semibold fs-15px pb-6" for="number">Quantity:
+                                </label>
+                                <div class="input-group position-relative w-100 input-group-lg">
+                                    <a href="#"
+                                        class="shop-down position-absolute translate-middle-y top-50 start-0 ps-7 product-info-2-minus"><i
+                                            class="far fa-minus"></i></a>
+                                    <input name="number" type="number" id="number"
+                                        class="product-info-2-quantity form-control w-100 px-6 text-center" value="1"
+                                        required="">
+                                    <a href="#"
+                                        class="shop-up position-absolute translate-middle-y top-50 end-0 pe-7 product-info-2-plus"><i
+                                            class="far fa-plus"></i>
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="col-sm-8 pt-9 mt-2 mt-sm-0 pt-sm-0">
+                                <button type="submit" class="btn-hover-bg-primary btn-hover-border-primary btn btn-lg btn-dark w-100">Add To Bag</button>
+                            </div>
+                        </div>
+
+                    </form>
+                    <div class="d-flex align-items-center flex-wrap">
+                        <a href="#" class="text-decoration-none fw-semibold fs-6 me-9 pe-2 d-flex align-items-center">
+                            <svg class="icon fs-5">
+                                <use xlink:href="#icon-ShareNetwork"></use>
+                            </svg>
+                            <span class="ms-4 ps-2">Share</span>
+                        </a>
+                    </div>
+
+                    <ul class="single-product-meta list-unstyled border-top pt-7 mt-7">
+                        <li class="d-flex mb-4 pb-2 align-items-center">
+                            <span class="text-body-emphasis fw-semibold fs-14px">Sku:</span>
+                            <span class="ps-4">{{product.sku}}</span>
+                        </li>
+                        {% if product.categories.exists %}
+                        <li class="d-flex mb-4 pb-2 align-items-center">
+                            <span class="text-body-emphasis fw-semibold fs-14px">Categories:</span>
+                            <span class="ps-4">{% for category in product.categories.all %}{{ category.name }}{% if not forloop.last %}, {% endif %}{% endfor %}</span>
+                        </li>
+                        {% endif %}
+                    </ul>
+
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    {% include 'base/footer.html' %}
+
+    {% include 'base/scripts.html' %}
+
+    {% include 'base/svg-icons.html' %}
+    {% include 'base/modals.html' %}
+
+</body>
+
+</html>

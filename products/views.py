@@ -1,11 +1,13 @@
-from django.shortcuts import render
-from base.models import HomeSlider
-from products.models import Category, Tag, ProductType, Product, ProductImage
+from django.core.paginator import Paginator
 from django.db.models import Count
+from django.shortcuts import render
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
+
+from base.models import HomeSlider, Section, SectionType
+from products.models import Category, Product, ProductImage, ProductType
+
 from .serializers import ProductSerializer
-from django.core.paginator import Paginator
 
 
 def index(request):
@@ -15,24 +17,37 @@ def index(request):
         product_count=Count("products")
     ).filter(product_count__gt=0)
     products = Product.objects.all()
-    products_popular = Product.objects.filter(is_popular=True).prefetch_related(
-        "images"
-    )
-    products_deal = Product.objects.filter(is_deal=True).prefetch_related("images")
+    section_settings = Section.objects.filter(is_active=True)
+    product_types = ProductType.objects.all()
+
+    trending_products = Product.objects.filter(trending=True).prefetch_related("images")
     context = {
         "home_slider_data": home_sliders,
         "product_categories": product_categories,
         "product_popular_categories": product_popular_categories,
         "products": products,
-        "products_popular": products_popular,
-        "products_deal": products_deal,
+        "trending_products": trending_products,
+        "product_types": product_types,
+        "section_settings": {
+            SectionType.NEW_COLLECTION: section_settings.filter(
+                type=SectionType.NEW_COLLECTION
+            ).first(),
+            SectionType.SERVICES: section_settings.filter(type=SectionType.SERVICES),
+            SectionType.WHY_WITH_US: section_settings.filter(
+                type=SectionType.WHY_WITH_US
+            ),
+        },
     }
-    return render(request, "index.html", context)
+    return render(request, "pages/index/index.html", context)
 
 
 def shop(request):
     category_slug = request.GET.get("category")
-    tags_slugs = request.GET.get("tags", "").split(",")
+    type_slug = request.GET.get("type")
+    orderby = request.GET.get("orderby", "order")
+
+    if orderby not in ["created_at", "-created_at", "price", "-price"]:
+        orderby = "order"
 
     product_categories = (
         Category.objects.annotate(product_count=Count("products"))
@@ -40,49 +55,56 @@ def shop(request):
         .order_by("order")
         .only("name", "slug")
     )
-    product_tags = (
-        Tag.objects.annotate(product_count=Count("products"))
+    product_types = (
+        ProductType.objects.annotate(product_count=Count("products"))
         .filter(product_count__gt=0)
-        .order_by("name")
         .only("name", "slug")
     )
-    products = Product.objects.all()
+    products = (
+        Product.objects.all()
+        .order_by(orderby)
+        .prefetch_related("images", "categories", "types")
+    )
 
     if category_slug:
         products = products.filter(categories__slug=category_slug)
 
-    if tags_slugs and tags_slugs != [""]:
-        products = products.filter(tags__slug__in=tags_slugs).distinct()
+    if type_slug:
+        products = products.filter(types__slug=type_slug).distinct()
 
     # Paginate
-    paginator = Paginator(products, 8)  # Show 12 products per page
+    paginator = Paginator(products, 8)  # Show 8 products per page
     page_number = request.GET.get("page")
     page_obj = paginator.get_page(page_number)
 
     context = {
         "product_categories": product_categories,
-        "product_tags": product_tags,
         "products": page_obj,
+        "product_types": product_types,
         # 'page_obj': page_obj,
     }
-    return render(request, "shop.html", context)
+    return render(request, "pages/shop.html", context)
+
 
 def cart(request):
-    
+
     products = Product.objects.all()
 
     context = {
         "products": products,
     }
-    return render(request, "cart.html", context)
+    return render(request, "pages/shopping-cart.html", context)
 
 
-@api_view(["GET"])
-def product_detail(request, pk):
+def product_detail(request, slug):
     try:
-        product = Product.objects.prefetch_related("images", "categories").get(pk=pk)
+        product = Product.objects.prefetch_related("images", "categories").get(
+            slug=slug
+        )
     except Product.DoesNotExist:
-        return Response({"error": "Product not found"}, status=404)
+        return render(request, "pages/product_not_found.html", status=404)
 
-    serializer = ProductSerializer(product)
-    return Response(serializer.data)
+    context = {
+        "product": product,
+    }
+    return render(request, "pages/product-details.html", context)

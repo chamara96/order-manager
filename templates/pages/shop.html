@@ -1,0 +1,181 @@
+{% load static %}
+{% load djmoney %}
+{% load extra_settings %}
+{% load custom %}
+{% load easy_thumbnails_tags %}
+<!doctype html>
+<html lang="en" data-bs-theme="light">
+
+<head>
+	{% include 'base/head.html' with title="Shop" %}
+</head>
+
+<body>
+
+	{% include "base/header.html" %}
+
+	<main id="content" class="wrapper layout-page">
+
+		<section class="z-index-2 position-relative pb-2 mb-12">
+			<div class="bg-body-secondary mb-3">
+				<div class="container">
+					<nav class="py-4 lh-30px" aria-label="breadcrumb">
+						<ol class="breadcrumb justify-content-center py-1 mb-0">
+							<li class="breadcrumb-item"><a title="Home" href="/">Home</a></li>
+							<li class="breadcrumb-item active"><a title="Shop" href="{% url 'products:shop' %}">Shop</a>
+							</li>
+						</ol>
+					</nav>
+				</div>
+			</div>
+		</section>
+
+		<section class="container container-xxl">
+			<div class="tool-bar mb-11 align-items-center justify-content-between d-lg-flex">
+				<div class="tool-bar-left mb-6 mb-lg-0 fs-18px">
+					Showing {{ products.start_index }}-{{ products.end_index }} of {{ products.paginator.count }} Results
+				</div>
+				<div class="tool-bar-right align-items-center d-flex ">
+					<ul class="list-unstyled d-flex align-items-center list-inline mb-0 ms-auto">
+						<li class="list-inline-item me-0">
+							{% with orderby=request.GET.orderby orderby_default="orderby_default_value" %}
+							<select class="form-select" name="orderby" onchange="if (this.value || this.value === '') window.location.href='{% shop_url orderby=orderby_default %}'.replaceAll('{{orderby_default}}', this.value);">
+								<option value="" {% if orderby == "" %}selected{% endif %}>Default sorting</option>
+								<option value="-created_at" {% if orderby == "-created_at" %}selected{% endif %}>Sort by latest</option>
+								<option value="price" {% if orderby == "price" %}selected{% endif %}>Sort by price: low to high</option>
+								<option value="-price" {% if orderby == "-price" %}selected{% endif %}>Sort by price: high to low</option>
+							</select>
+							{% endwith %}
+						</li>
+					</ul>
+				</div>
+			</div>
+		</section>
+
+		<div class="container container-xxl pb-16 pb-lg-18">
+			<div class="row">
+				<div class="col-lg-9 order-lg-1">
+					<div class="row gy-11 justify-content-center">
+						{% for p in products %}
+						<div class="col-sm-6  col-lg-4 col-xl-3">
+							<div class="card card-product grid-2 bg-transparent border-0" data-animate="fadeInUp">
+								<figure class="card-img-top position-relative mb-7 overflow-hidden">
+									<a href="{% url 'products:product-details' p.slug %}" class="hover-zoom-in d-block" title="{{ p.name }}">
+										<img src="#" data-src="{% thumbnail p.main_image.image 330x440 crop upscale %}" class="img-fluid lazy-image w-100" alt="{{ p.name }}" width="330" height="440">
+									</a>
+									<div class="position-absolute product-flash z-index-2 ">
+										{% if p.discount_percentage > 0 %}
+										<span class="badge badge-product-flash on-sale bg-primary">-{{ p.formatted_discount_percentage }}%</span>
+										{% endif %}
+										{% if p.new %}
+											<span class="badge badge-product-flash on-new">New</span>
+										{% endif %}
+									</div>
+									<a href="#" class="btn btn-add-to-cart btn-dark btn-hover-bg-primary btn-hover-border-primary position-absolute z-index-2 text-nowrap btn-sm px-6 py-3 lh-2">Add To Cart</a>
+								</figure>
+								<div class="card-body text-center p-0">
+									<span class="d-flex align-items-center price text-body-emphasis fw-bold justify-content-center mb-3 fs-6">
+										{% if p.has_discount %}
+										<del class=" text-body fw-500 me-4 fs-13px">{% money_localize p.price %}</del>
+										{% endif %}
+										<ins class="text-decoration-none">{% money_localize p.net_price %}</ins>
+									</span>
+									<h4 class="product-title card-title text-primary-hover text-body-emphasis fs-15px fw-500 mb-3">
+										<a class="text-decoration-none text-reset" href="{% url 'products:product-details' p.slug %}">{{ p.name }}</a>
+									</h4>
+								</div>
+							</div>
+						</div>
+						{% endfor %}
+					</div>
+
+					<nav class="d-flex mt-13 pt-3 justify-content-center" aria-label="pagination"
+						data-animate="fadeInUp">
+						<ul class="pagination m-0">
+							
+							<li class="page-item {% if not products.has_previous %}disabled{% endif %}">
+								<a class="page-link rounded-circle d-flex align-items-center justify-content-center"
+									href="{% shop_url page=1 %}" aria-label="First">
+									<svg class="icon">
+										<use xlink:href="#icon-angle-double-left"></use>
+									</svg>
+								</a>
+							</li>
+
+							{% if products.has_previous %}
+							<li class="page-item">
+								<a class="page-link" href="{% shop_url page=products.previous_page_number %}">{{ products.previous_page_number }}</a>
+							</li>
+							{% endif %}
+
+							<li class="page-item active"><a class="page-link" href="#">{{ products.number }}</a></li>
+
+							{% if products.has_next %}
+							<li class="page-item">
+								<a class="page-link" href="{% shop_url page=products.next_page_number %}">{{ products.next_page_number }}</a>
+							</li>
+							{% endif %}
+							
+							<li class="page-item {% if not products.has_next %}disabled{% endif %}">
+								<a class="page-link rounded-circle d-flex align-items-center justify-content-center"
+									href="{% shop_url page=products.paginator.num_pages %}" aria-label="Last">
+									<svg class="icon">
+										<use xlink:href="#icon-angle-double-right"></use>
+									</svg>
+								</a>
+							</li>
+
+						</ul>
+					</nav>
+
+				</div>
+				<div class="col-lg-3 d-lg-block d-none">
+					<div class="position-sticky top-0">
+						<aside class="primary-sidebar pe-xl-9 me-xl-2 mt-12 pt-2 mt-lg-0 pt-lg-0">
+							{% if request.GET.category or request.GET.type %}
+							<div class="widget">
+								<a href="{% url 'products:shop' %}" role="button" class="btn btn-hover-border-primary btn-hover-bg-primary btn-hover-text-light btn-dark">Clear Filters</a>
+							</div>
+							{% endif %}
+							<div class="widget widget-product-category">
+								<h4 class="widget-title fs-5 mb-6">Category</h4>
+								<ul class="navbar-nav navbar-nav-cate" id="widget_product_category">
+									{% for c in product_categories %}
+									<li class="nav-item">
+										<a href="{% shop_url category=c.slug %}" title="{{c.name}}" class="text-reset position-relative d-block text-decoration-none text-body-emphasis-hover d-flex align-items-center text-uppercase fs-14px fw-semibold letter-spacing-5 {% if request.GET.category == c.slug %}active{% endif %}">
+											<span class="text-hover-underline">{{c.name}} ({{c.product_count}})</span>
+										</a>
+									</li>
+									{% endfor %}
+								</ul>
+							</div>
+							<div class="widget widget-product-hightlight">
+								<h4 class="widget-title fs-5 mb-6">Collection</h4>
+								<ul class="navbar-nav navbar-nav-cate" id="widget_product_hightlight">
+									{% for t in product_types %}
+									<li class="nav-item">
+										<a href="{% shop_url type=t.slug %}" title="{{ t.name }}" class="text-reset position-relative d-block text-decoration-none text-body-emphasis-hover d-flex align-items-center {% if request.GET.type == t.slug %}active{% endif %}">
+											<span class="text-hover-underline">{{ t.name }}</span>
+										</a>
+									</li>
+									{% endfor %}
+								</ul>
+							</div>
+						</aside>
+					</div>
+				</div>
+			</div>
+		</div>
+
+	</main>
+
+	{% include 'base/footer.html' %}
+
+	{% include 'base/scripts.html' %}
+
+	{% include 'base/svg-icons.html' %}
+	{% include 'base/modals.html' %}
+
+</body>
+
+</html>

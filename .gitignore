@@ -1,6 +1,6 @@
 /venv
 /media
-/static
+base/static
 __pycache__
 *.pyc
 *.pyo

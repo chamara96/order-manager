@@ -1,0 +1,33 @@
+{% load static %}
+{% load custom %}
+<section>
+
+    <div class="slick-slider hero hero-header-09"
+        data-slick-options='{"arrows":false,"autoplay":true,"cssEase":"ease-in-out","dots":false,"fade":true,"infinite":true,"slidesToShow":1,"speed":600}'>
+
+        {% for item in home_slider_data %}
+        <div class=" vh-100 d-flex align-items-center">
+            <div class="lazy-bg bg-overlay position-absolute z-index-1 w-100 h-100   light-mode-img"
+                data-bg-src="{{item.image.url}}">
+            </div>
+            <div class="position-relative z-index-2 container container-xxl pt-22 pb-15 pt-xl-13 pb-xl-11">
+                <div class="border-0 ps-lg-1 mx-md-0 mx-auto hero-card text-center">
+                    <div class="text-start text-xl-center">
+                        <div data-animate="fadeInDown">
+                            <p class="text-primary mb-8 hero-title font-primary">{{item.header}}</p>
+                            <h1 class="mb-7 hero-title">{{item.title}}</h1>
+                            <p class="hero-desc fs-18px mb-11 text-body-calculate">{{item.subtitle}}</p>
+                        </div>
+                        <a href="{{item.path}}" data-animate="fadeInUp"
+                            class="btn btn-lg btn-dark btn-hover-bg-primary btn-hover-border-primary">
+                            Shop Now
+                        </a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        {% endfor %}
+
+    </div>
+</section>

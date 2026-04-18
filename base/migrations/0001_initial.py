@@ -7,26 +7,33 @@ class Migration(migrations.Migration):
 
     initial = True
 
-    dependencies = [
-    ]
+    dependencies = []
 
     operations = [
         migrations.CreateModel(
-            name='HomeSlider',
+            name="HomeSlider",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('created_at', models.DateTimeField(auto_now_add=True)),
-                ('updated_at', models.DateTimeField(auto_now=True)),
-                ('is_active', models.BooleanField(default=True)),
-                ('title', models.CharField(max_length=30)),
-                ('category', models.CharField(max_length=30)),
-                ('image', models.ImageField(upload_to='uploads/')),
-                ('order', models.PositiveIntegerField(default=0)),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("created_at", models.DateTimeField(auto_now_add=True)),
+                ("updated_at", models.DateTimeField(auto_now=True)),
+                ("is_active", models.BooleanField(default=True)),
+                ("title", models.CharField(max_length=30)),
+                ("category", models.CharField(max_length=30)),
+                ("image", models.ImageField(upload_to="uploads/")),
+                ("order", models.PositiveIntegerField(default=0)),
             ],
             options={
-                'verbose_name': 'Home Slider',
-                'verbose_name_plural': 'Home Sliders',
-                'ordering': ['order'],
+                "verbose_name": "Home Slider",
+                "verbose_name_plural": "Home Sliders",
+                "ordering": ["order"],
             },
         ),
     ]

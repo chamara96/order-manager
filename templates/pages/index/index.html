@@ -1,0 +1,31 @@
+{% load static %}
+{% load extra_settings %}
+<!doctype html>
+<html lang="en" data-bs-theme="light">
+
+<head>
+	{% include 'base/head.html' with title="Home" %}
+</head>
+
+<body>
+	{% include "base/header.html" with positionclass="position-absolute" %}
+
+	<main id="content" class="wrapper layout-page">
+		{% include "pages/index/main-slider.html" %}
+		{% include "pages/index/featured-products.html" %}
+		{% include "pages/index/deals.html" %}
+		{% include "pages/index/shop-by-types.html" %}
+		<!-- {% include "pages/index/image-banner.html" %} -->
+		{% include "pages/index/ending.html" %}
+	</main>
+
+	{% include 'base/footer.html' %}
+
+	{% include 'base/scripts.html' %}
+
+	{% include 'base/svg-icons.html' %}
+	{% include 'base/modals.html' %}
+
+</body>
+
+</html>
