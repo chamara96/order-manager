@@ -1,12 +1,11 @@
 from adminsortable2.admin import SortableAdminMixin
 from django.contrib import admin
 
-# from django.contrib.auth.models import User
 # from django.contrib.sites.models import Site
 from django.contrib.auth.models import Group
 from django.utils.html import format_html
 
-from .models import HomeSlider, Section
+from .models import HomeSlider, Section, User
 
 # admin.site.unregister(User)
 admin.site.unregister(Group)
@@ -47,3 +46,4 @@ class SectionAdmin(admin.ModelAdmin):
 
 admin.site.register(HomeSlider, HomeSliderAdmin)
 admin.site.register(Section, SectionAdmin)
+admin.site.register(User)

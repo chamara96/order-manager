@@ -6,33 +6,19 @@
             <div class="row align-items-center">
                 <div class="col-lg-4 col-12 mb-lg-0 mb-11">
                     <ul class="list-inline fs-15px text-center text-lg-start mb-0">
-                        <li class="list-inline-item me-9 pe-2"><a href="#" class="text-body-emphasis">About Us</a>
-                        </li>
-                        <li class="list-inline-item me-9 pe-2"><a href="#" class="text-body-emphasis">FAQs</a></li>
-                        <li class="list-inline-item"><a href="#" class="text-body-emphasis">Shipping &amp; Return
-                                Policy</a>
-                        </li>
+                        <li class="list-inline-item me-9 pe-2"><a href="#" class="text-body-emphasis">About Us</a></li>
+                        <li class="list-inline-item"><a href="#" class="text-body-emphasis">Contact Us</a></li>                        
                     </ul>
                 </div>
                 <div class="col-lg-4 col-12 mb-lg-0 mb-11">
                     <div class="mx-auto text-center">
-
-
-                        <img class="lazy-image img-fluid light-mode-img" src="#"
-                            data-src="{% get_media_prefix %}{% get_setting 'LOGO' %}" width="184" height="49"
-                            alt="{% get_setting 'WEBSITE_NAME' %}">
-                        <img class="lazy-image dark-mode-img img-fluid" src="#"
-                            data-src="{% static 'assets/images/others/logo-white-02.png' %}" width="184" height="49"
-                            alt="{% get_setting 'WEBSITE_NAME' %}">
+                        <img class="lazy-image img-fluid light-mode-img" src="#" data-src="{% get_media_prefix %}{% get_setting 'LOGO' %}" width="184" height="49" alt="{% get_setting 'WEBSITE_NAME' %}">
                     </div>
                 </div>
                 <div class="col-lg-4 col-12">
                     <ul class="list-inline fs-15px text-center text-lg-end mb-0">
-                        <li class="list-inline-item me-9 pe-2"><a href="#" class="text-body-emphasis">Accessibility</a>
-                        </li>
-                        <li class="list-inline-item me-9 pe-2"><a href="#" class="text-body-emphasis">Contact Us</a>
-                        </li>
-                        <li class="list-inline-item"><a href="#" class="text-body-emphasis">Blog</a></li>
+                        <li class="list-inline-item me-9 pe-2"><a href="#" class="text-body-emphasis">Shipping & Return Policy</a></li>
+                        <li class="list-inline-item"><a href="{% url 'orders:find_my_orders_view' %}" class="text-body-emphasis">My Orders</a></li>
                     </ul>
                 </div>
             </div>

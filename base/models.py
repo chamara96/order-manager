@@ -1,3 +1,6 @@
+import uuid
+
+from django.contrib.auth.models import AbstractUser
 from django.db import models
 
 
@@ -51,3 +54,17 @@ class Section(BaseModel):
 
     def __str__(self):
         return f"{self.title}"
+
+
+class User(AbstractUser):
+    phone_number = models.CharField(max_length=20)
+    email = models.EmailField(unique=True)
+
+    def __str__(self):
+        return self.email
+
+    def save(self, *args, **kwargs):
+        if not self.pk:
+            self.username = str(uuid.uuid4())
+
+        super().save(*args, **kwargs)

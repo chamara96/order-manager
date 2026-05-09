@@ -21,14 +21,19 @@
 
                 <div class="d-none d-xl-flex w-xl-50 justify-content-center">
                     <ul class="navbar-nav">
-                        <li class="nav-item transition-all-xl-1 py-xl-11 py-0 me-xxl-12 me-xl-10">
+                        <li class="nav-item transition-all-xl-1 py-xl-11 py-0 mx-xxl-8 mx-xl-6">
                             <a class="nav-link d-flex justify-content-between position-relative py-xl-0 px-xl-0 text-uppercase fw-semibold ls-1 fs-15px fs-xl-14px" href="/" id="menu-item-home" aria-expanded="false">
                                 Home
                             </a>
                         </li>
-                        <li class="nav-item transition-all-xl-1 py-xl-11 py-0 me-xxl-12 me-xl-10">
+                        <li class="nav-item transition-all-xl-1 py-xl-11 py-0 mx-xxl-8 mx-xl-6">
                             <a class="nav-link d-flex justify-content-between position-relative py-xl-0 px-xl-0 text-uppercase fw-semibold ls-1 fs-15px fs-xl-14px" href="{% url 'products:shop' %}" id="menu-item-shop" aria-expanded="false">
                                 Shop
+                            </a>
+                        </li>
+                        <li class="nav-item transition-all-xl-1 py-xl-11 py-0 mx-xxl-8 mx-xl-6">
+                            <a class="nav-link d-flex justify-content-between position-relative py-xl-0 px-xl-0 text-uppercase fw-semibold ls-1 fs-15px fs-xl-14px" href="{% url 'carts:cart_view' %}" id="menu-item-shop" aria-expanded="false">
+                                Cart
                             </a>
                         </li>
                     </ul>
@@ -51,18 +56,18 @@
                             </svg>
                         </a>
                     </div>
+                    {% if cart_items|length > 0 %}
                     <div class="px-5 d-none d-xl-inline-block">
-                        <a class="position-relative lh-1 color-inherit text-decoration-none" href="#"
-                            data-bs-toggle="offcanvas" data-bs-target="#shoppingCart" aria-controls="shoppingCart"
-                            aria-expanded="false">
+                        <a class="position-relative lh-1 color-inherit text-decoration-none" href="#" data-bs-toggle="offcanvas" data-bs-target="#shoppingCart" aria-controls="shoppingCart" aria-expanded="false">
                             <svg class="icon icon-star-light">
                                 <use xlink:href="#icon-shopping-bag-open-light"></use>
                             </svg>
-                            <span
-                                class="badge bg-dark text-white position-absolute top-0 start-100 translate-middle mt-4 rounded-circle fs-13px p-0 square"
-                                style="--square-size: 18px">3</span>
+                            <span class="badge bg-dark text-white position-absolute top-0 start-100 translate-middle mt-4 rounded-circle fs-13px p-0 square" style="--square-size: 18px">
+                                {{ cart_items|length }}
+                            </span>
                         </a>
                     </div>
+                    {% endif %}
                 </div>
             </div>
         </div>

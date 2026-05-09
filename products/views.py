@@ -1,10 +1,11 @@
 from django.core.paginator import Paginator
 from django.db.models import Count
-from django.shortcuts import render
+from django.shortcuts import redirect, render
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 
 from base.models import HomeSlider, Section, SectionType
+from carts.cart_service import CartService
 from products.models import Category, Product, ProductImage, ProductType
 
 from .serializers import ProductSerializer
@@ -86,23 +87,26 @@ def shop(request):
     return render(request, "pages/shop.html", context)
 
 
-def cart(request):
-
-    products = Product.objects.all()
-
-    context = {
-        "products": products,
-    }
-    return render(request, "pages/shopping-cart.html", context)
+from django.http import Http404
 
 
 def product_detail(request, slug):
+    if request.method == "POST":
+        product_id = request.POST.get("productid")
+        quantity = request.POST.get("quantity", 1)
+        try:
+            quantity = int(quantity)
+        except ValueError:
+            quantity = 1
+
+        CartService(request).add(product_id, quantity)
+        return redirect("products:shop")
     try:
         product = Product.objects.prefetch_related("images", "categories").get(
             slug=slug
         )
     except Product.DoesNotExist:
-        return render(request, "pages/product_not_found.html", status=404)
+        raise Http404("Product not found")
 
     context = {
         "product": product,

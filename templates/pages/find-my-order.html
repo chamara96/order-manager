@@ -1,0 +1,185 @@
+{% load static %}
+{% load extra_settings %}
+{% load djmoney %}
+{% load easy_thumbnails_tags %}
+<!doctype html>
+<html lang="en" data-bs-theme="light">
+
+<head>
+    {% include 'base/head.html' with title='My Orders' %}
+</head>
+
+<body>
+
+    {% include "base/header.html" %}
+
+    <main id="content" class="wrapper layout-page">
+        <section class="pb-16 pb-lg-18 ">
+
+            <div class="bg-body-secondary py-5">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb breadcrumb-site py-0 d-flex justify-content-center">
+                        <li class="breadcrumb-item"><a class="text-decoration-none text-body" href="/">Home</a></li>
+                        <li class="breadcrumb-item active pl-0 d-flex align-items-center" aria-current="page">My Order</li>
+                    </ol>
+                </nav>
+            </div>
+
+            <div class="container">
+                <div class=" text-center pt-13 mb-12 mb-lg-15">
+                    <div class="text-center">
+                        <h2 class="fs-36px mb-11 mb-lg-14">Find My Order</h2>
+                        <p>Enter an order number to find your order details and status</p>
+                    </div>
+
+                    <form method="post" style="max-width: 770px" class="mx-auto ">
+                        {% csrf_token %}
+                        <div class="input-group ">
+                            <button type="submit" class="input-group-text bg-transparent px-6 border-0 position-absolute z-index-4 text-body-emphasis fs-5 start-0 top-0 bottom-0 m-auto">
+                                <svg class="icon icon-magnifying-glass-light">
+                                    <use xlink:href="#icon-magnifying-glass-light"></use>
+                                </svg>
+                            </button>
+                            <input type="search" name="ordernumber" class="input-focus form-control ps-12" placeholder="Order Number" required {% if order %}value="{{order.order_number}}"{% endif %}>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <div class="container">
+                {% if order %}
+                <div class="row">
+
+                    <div class="col-lg-4 pb-lg-0 pb-14 order-lg-last">
+                        <div class="card border-0 rounded-0 shadow">
+                            <div class="card-header px-0 mx-10 bg-transparent py-8">
+                                <h4 class="fs-4 mb-8">Order Summary</h4>
+                                {% for item in order.items.all %}
+                                <div class="d-flex w-100 mb-7">
+                                    <div class="me-6">
+                                        <img src="#" data-src="{{ item.product.main_image.image|thumbnail_url:'product_thumbnail' }}" class="lazy-image" width="60" height="80" alt="{{ item.product.name }}">
+                                    </div>
+                                    <div class="d-flex flex-grow-1">
+                                        <div class="pe-6">
+                                            <a href="{% url 'products:product-details' item.product.slug %}" class="">{{ item.product.name }}<span class="text-body">x{{ item.quantity }}</span></a>
+                                            {% if item.note|length > 0 %}
+                                            <p class="fs-14px text-body-emphasis mb-0 mt-1">Note:
+                                                <span class="text-body" data-bs-toggle="tooltip" data-bs-title="{{ item.note }}">{{ item.note|truncatechars:16 }}</span>
+                                            </p>
+                                            {% endif %}
+                                        </div>
+                                        <div class="ms-auto">
+                                            <p class="fs-14px text-body-emphasis mb-0 fw-bold">{% money_localize item.price %}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                {% endfor %}
+                            </div>
+
+                            <div class="card-body px-10 py-8">
+                                <div class="d-flex align-items-center mb-2">
+                                    <span>Subtotal:</span>
+                                    <span class="d-block ms-auto text-body-emphasis fw-bold">{% money_localize order.total_price %}</span>
+                                </div>
+                                <div class="d-flex align-items-center">
+                                    <span>Shipping:</span>
+                                    <span class="d-block ms-auto text-body-emphasis fw-bold">LKR0</span>
+                                </div>
+                            </div>
+                            <div class="card-footer bg-transparent py-5 px-0 mx-10">
+                                <div class="d-flex align-items-center fw-bold mb-6">
+                                    <span class="text-body-emphasis p-0">Total pricre:</span>
+                                    <span class="d-block ms-auto text-body-emphasis fs-4 fw-bold">{% money_localize order.total_price %}</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-8 order-lg-first pe-xl-20 pe-lg-6">
+                        <div class="checkout">
+                            <h4 class="fs-4 pt-4 mb-7">Shipping Information</h4>
+
+                            <div>
+                                <table class="table">
+                                    <tr>
+                                        <td>Name:</td>
+                                        <td>{{order.customer_name}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Address:</td>
+                                        <td>{{order.delivery_address}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Email:</td>
+                                        <td>{{order.customer_email}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Phone:</td>
+                                        <td>{{order.customer_phone}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Payment Method:</td>
+                                        <td>{{order.payment_method}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Order Date:</td>
+                                        <td>{{order.order_date}}</td>
+                                    </tr>
+                                </table>
+                            </div>
+
+                            {% if order.order.statuses.count > 0 %}
+                            <!-- Recent activities -->
+                            <div class="card-body p-0">
+                                <h5 class="card-title fs-6 mb-6">Recent activities</h5>
+                                <ul class="verti-timeline list-unstyled fs-13px mx-4">
+                                    {% for status in order.statuses.all reversed %}
+                                    <li class="event-list d-flex align-items-center position-relative">
+                                        <div class="event-timeline-dot">
+                                            <i class="fa-solid fa-circle-dot {% if forloop.last %}fa-beat-fade{% endif %}"></i>
+                                        </div>
+                                        <div class="d-flex flex-row align-items-center">
+                                            <div class="me-6">
+                                                <h6 class="fs-13px mb-0"><span class="d-inline-block me-6 w-50px">{{status.updated_at}}</span>
+                                                    <i class="fa-solid fa-angle-right"></i>
+                                                </h6>
+                                            </div>
+                                            <p class="mb-0 fs-13px">{{status.status.name}}<br><small>{{status.note}}</small></p>
+                                        </div>
+                                    </li>
+                                    {% endfor %}
+                                </ul>
+                            </div>
+                            {% endif %}
+
+                        </div>
+
+                    </div>
+
+                </div>
+                {% elif error %}
+                <div class="icon-box icon-box-style-1 card border-0 text-center">
+                    <div class="icon-box-icon card-img fs-70px text-danger">
+                        <i class="fa-regular fa-face-meh"></i>
+                    </div>
+                    <div class="icon-box-content card-body">
+                        <h3 class="icon-box-title card-title fs-5 mb-4 pb-2">Not Found!</h3>
+                        <p class="icon-box-desc card-text fs-18px mb-0">{{ error }}</p>
+                    </div>
+                </div>
+                {% endif %}
+            </div>
+
+        </section>
+    </main>
+    
+    {% include 'base/footer.html' %}
+
+    {% include 'base/scripts.html' %}
+
+    {% include 'base/svg-icons.html' %}
+    {% include 'base/modals.html' %}
+
+</body>
+
+</html>

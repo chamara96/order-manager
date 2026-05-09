@@ -87,17 +87,15 @@
 					</p>
                     {% endif %}
 
-                    <form class="pb-8">
+                    <form method="POST" class="pb-8">
+                        {% csrf_token %}
                         {% if product.sizes.exists %}
                         <div class="form-group shop-swatch mb-7 d-flex align-items-center">
-                            <span class="fw-semibold text-body-emphasis me-7">Size: </span>
+                            <span class="fw-semibold text-body-emphasis me-7">Available Size: </span>
                             <ul class="list-inline d-flex justify-content-start mb-0">
                                 {% for size in product.sizes.all %}
                                 <li class="list-inline-item me-4 fw-semibold">
-                                    <input type="radio" id="radio{{ forloop.counter }}" name="radio" class="product-info-size d-none"
-                                        {% if forloop.first %}checked{% endif %}>
-                                    <label for="radio{{ forloop.counter }}" class="fs-14px p-4 d-block rounded text-decoration-none border"
-                                        data-var="{{ size.name }}">{{ size.name }}</label>
+                                    <label class="fs-14px p-4 d-block rounded text-decoration-none border" data-var="{{ size.name }}">{{ size.name }}</label>
                                 </li>
                                 {% endfor %}
                             </ul>
@@ -106,27 +104,20 @@
 
                         <div class="row align-items-end">
                             <div class="form-group col-sm-4">
-                                <label class=" text-body-emphasis fw-semibold fs-15px pb-6" for="number">Quantity:
-                                </label>
+                                <label class=" text-body-emphasis fw-semibold fs-15px pb-6" for="quantity">Quantity:</label>
                                 <div class="input-group position-relative w-100 input-group-lg">
-                                    <a href="#"
-                                        class="shop-down position-absolute translate-middle-y top-50 start-0 ps-7 product-info-2-minus"><i
-                                            class="far fa-minus"></i></a>
-                                    <input name="number" type="number" id="number"
-                                        class="product-info-2-quantity form-control w-100 px-6 text-center" value="1"
-                                        required="">
-                                    <a href="#"
-                                        class="shop-up position-absolute translate-middle-y top-50 end-0 pe-7 product-info-2-plus"><i
-                                            class="far fa-plus"></i>
-                                    </a>
+                                    <a href="#" class="shop-down position-absolute translate-middle-y top-50 start-0 ps-7 product-info-2-minus"><i class="far fa-minus"></i></a>
+                                    <input name="quantity" type="number" id="quantity" class="product-info-2-quantity form-control w-100 px-6 text-center" value="1" min="1" required="">
+                                    <a href="#" class="shop-up position-absolute translate-middle-y top-50 end-0 pe-7 product-info-2-plus"><i class="far fa-plus"></i></a>
                                 </div>
                             </div>
+                            <input type="hidden" name="productid" value="{{ product.id }}">
                             <div class="col-sm-8 pt-9 mt-2 mt-sm-0 pt-sm-0">
                                 <button type="submit" class="btn-hover-bg-primary btn-hover-border-primary btn btn-lg btn-dark w-100">Add To Bag</button>
                             </div>
                         </div>
-
                     </form>
+
                     <div class="d-flex align-items-center flex-wrap">
                         <a href="#" class="text-decoration-none fw-semibold fs-6 me-9 pe-2 d-flex align-items-center">
                             <svg class="icon fs-5">

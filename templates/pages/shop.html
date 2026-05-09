@@ -71,7 +71,7 @@
 											<span class="badge badge-product-flash on-new">New</span>
 										{% endif %}
 									</div>
-									<a href="#" class="btn btn-add-to-cart btn-dark btn-hover-bg-primary btn-hover-border-primary position-absolute z-index-2 text-nowrap btn-sm px-6 py-3 lh-2">Add To Cart</a>
+									<a href="{% url 'carts:add_to_cart' p.id %}" class="btn btn-add-to-cart btn-dark btn-hover-bg-primary btn-hover-border-primary position-absolute z-index-2 text-nowrap btn-sm px-6 py-3 lh-2">Add To Cart</a>
 								</figure>
 								<div class="card-body text-center p-0">
 									<span class="d-flex align-items-center price text-body-emphasis fw-bold justify-content-center mb-3 fs-6">

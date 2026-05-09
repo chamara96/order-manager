@@ -23,8 +23,12 @@ from django.urls import include, path
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("", include("products.urls")),
-    path("", include("orders.urls")),
+    path("", include("base.urls")),
+    path("order/", include("orders.urls")),
+    path("cart/", include("carts.urls")),
 ]
+
+handler404 = "base.views.handler404"
 
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

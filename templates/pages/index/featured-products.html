@@ -27,7 +27,7 @@
                         </div>
 
                         <div class="position-absolute d-flex z-index-2 product-actions horizontal">
-                            <a class="text-body-emphasis bg-body bg-dark-hover text-light-hover rounded-circle square product-action shadow-sm add_to_cart" href="#" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Add To Cart">
+                            <a class="text-body-emphasis bg-body bg-dark-hover text-light-hover rounded-circle square product-action shadow-sm add_to_cart" href="{% url 'carts:add_to_cart' p.id %}" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Add To Cart">
                                 <svg class="icon icon-shopping-bag-open-light">
                                     <use xlink:href="#icon-shopping-bag-open-light"></use>
                                 </svg>
@@ -69,7 +69,7 @@
                     <h2 class="fs-20 w-md-50 w-lg-100 w-xl-80 mb-4 me-7 me-md-25">{{ section.title }}</h2>
                     <p class="fs-18px mb-0 text-body-calculate">{{section.subtitle}}</p>
                 </div>
-                <a href="#" class="mt-10 btn btn-white shadow-sm">Explore More</a>
+                <a href="/" class="mt-10 btn btn-white shadow-sm">Explore More</a>
             </div>
             <div class="col-lg-8 order-1 order-lg-2" data-animate="fadeIn">
                 <img class="lazy-image img-fluid light-mode-img" src="#" data-src="{% static section.icon %}" width="923" height="640" alt="other-01">
