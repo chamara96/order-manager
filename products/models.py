@@ -103,7 +103,7 @@ class Product(BaseModel):
         if (
             self.discount_percentage
             and self.discount_percentage > 0
-            and self.discount_price == Money("0", "LKR")
+            and self.discount_price == Money(0, "LKR")
         ):
             return self.price - (self.price * (self.discount_percentage / 100))
         if self.discount_price and self.discount_price.amount > 0:

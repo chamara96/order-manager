@@ -6,3 +6,6 @@ djangorestframework==3.16.0
 pillow==11.2.1
 sqlparse==0.5.3
 typing_extensions==4.13.1
+easy-thumbnails==2.10.1
+django-money==3.6.0
+python-dotenv==1.2.2

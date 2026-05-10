@@ -1,4 +1,4 @@
-from moneyed import Money
+from djmoney.money import Money
 
 from carts.cart_service import CartService
 from products.models import Product
